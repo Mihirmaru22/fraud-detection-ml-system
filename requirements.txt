@@ -1,11 +1,6 @@
+fastapi
+uvicorn
 pandas
 numpy
 scikit-learn
-matplotlib
-seaborn
-xgboost
-lightgbm
-catboost
 joblib
-fastapi 
-uvicorn

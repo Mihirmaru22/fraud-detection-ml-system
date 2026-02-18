@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+myenv/
+.venv/
+
+# Data
+data/
+
+
+
+# Git
+.git/
+.gitignore
+
+# Mac
+.DS_Store
+
+# Notebooks
+notebooks/
+
+# Logs
+*.log
