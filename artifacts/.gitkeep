@@ -1,0 +1,4 @@
+artifacts/
+    model.pkl
+    encoders.pkl
+    metadata.json
