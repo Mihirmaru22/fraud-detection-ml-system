@@ -1,6 +1,7 @@
 import joblib
 import pandas as pd
 import os
+import json
 
 
 class FraudPredictor:
@@ -11,9 +12,16 @@ class FraudPredictor:
 
         model_path = os.path.join(BASE_DIR, "artifacts/model.pkl")
         encoder_path = os.path.join(BASE_DIR, "artifacts/encoders.pkl")
+        metadata_path = os.path.join(BASE_DIR, "artifacts/metadata.json")
 
         self.model = joblib.load(model_path)
         self.encoders = joblib.load(encoder_path)
+
+        with open(metadata_path, "r") as f:
+            metadata = json.load(f)
+
+        self.feature_order = metadata["feature_order"]
+
 
     def preprocess(self, data: pd.DataFrame) -> pd.DataFrame:
         data = data.copy()
@@ -29,7 +37,7 @@ class FraudPredictor:
                 data[col] = encoder.transform(data[col])
             except ValueError:
                 raise ValueError(f"Unknown category in column {col}")
-
+        data = data[self.feature_order]
         return data
 
     def predict(self, data: pd.DataFrame):

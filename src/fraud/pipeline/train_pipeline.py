@@ -4,6 +4,7 @@ import joblib
 import os
 import json
 
+
 def run_training():
     path = "data/raw/LoanPrediction.csv"
 
@@ -15,6 +16,9 @@ def run_training():
 
     # Encode
     X_train, X_test, encoders = encode_categorical(X_train, X_test)
+
+    # Save feature order BEFORE training
+    feature_order = list(X_train.columns)
 
     # Train
     trained_models = train_models(X_train, y_train)
@@ -32,8 +36,10 @@ def run_training():
     joblib.dump(best_model, "artifacts/model.pkl")
     joblib.dump(encoders, "artifacts/encoders.pkl")
 
+    # ---------- Save metadata ----------
     metadata = {
-        "best_model": best_name
+        "best_model": best_name,
+        "feature_order": feature_order
     }
 
     with open("artifacts/metadata.json", "w") as f:
